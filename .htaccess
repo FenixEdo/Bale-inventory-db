@@ -1,0 +1,16 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirige la solicitud a la carpeta 'web'
+# si no está ya apuntando a 'web'
+RewriteCond %{REQUEST_URI} !^/web/
+# Redirige todas las solicitudes no existentes a 'web'
+RewriteRule ^(.*)$ web/$1
+
+# Si el archivo o directorio existe, utilízalo directamente
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# de lo contrario, redirige a index.php
+RewriteRule . index.php [L]
